@@ -474,9 +474,9 @@ MonoBehaviour:
   target: {fileID: 163104406}
   followOffset: {x: 0.8, y: 1.5, z: -10}
   smoothTime: 0.2
-  clampToBounds: 0
-  minBounds: {x: 0, y: 0}
-  maxBounds: {x: 0, y: 0}
+  clampToBounds: 1
+  minBounds: {x: 0, y: -1}
+  maxBounds: {x: 100, y: 100}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
