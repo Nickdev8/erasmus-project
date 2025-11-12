@@ -5,6 +5,7 @@ public class waffleScript : MonoBehaviour
 {
     [SerializeField] protected float waffleSpeed;
     private Rigidbody2D waffleRB;
+    [SerializeField] private int waffleDamage;
 
 
     private void Start()
@@ -16,5 +17,14 @@ public class waffleScript : MonoBehaviour
     void Update()
     {
         waffleRB.linearVelocityX += waffleSpeed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<enemyScript>().TakeDamage(waffleDamage);
+            Destroy(gameObject);
+        }
     }
 }
