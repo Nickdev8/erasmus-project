@@ -7,7 +7,6 @@ public class enemyScript : MonoBehaviour
     [SerializeField] private int currentHp;
 
     // Update is called once per frame
-
     public void TakeDamage(int damageTaken)
     {
         currentHp -= damageTaken;
