@@ -17,4 +17,5 @@ public class waffleScript : MonoBehaviour
     {
         waffleRB.linearVelocityX += waffleSpeed * Time.deltaTime;
     }
+
 }
