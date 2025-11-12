@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class playercontroler : MonoBehaviour
@@ -19,16 +20,34 @@ public class playercontroler : MonoBehaviour
     [SerializeField] private float respawnThresholdY = -10f;
     [SerializeField] private Transform respawnPoint;
 
+    [Header("Input (New System)")]
+    [SerializeField] private InputActionReference moveActionReference;
+    [SerializeField] private InputActionReference jumpActionReference;
+
     private Rigidbody2D body;
     private float verticalVelocity;
     private bool isGrounded;
     private Vector2 defaultSpawnPosition;
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private bool jumpQueued;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         body.gravityScale = 0f; // We handle gravity manually for consistent jump control.
         defaultSpawnPosition = respawnPoint != null ? (Vector2)respawnPoint.position : (Vector2)transform.position;
+    }
+
+    private void OnEnable()
+    {
+        BindInput(true);
+    }
+
+    private void OnDisable()
+    {
+        BindInput(false);
+        jumpQueued = false;
     }
 
     private void Update()
@@ -40,7 +59,7 @@ public class playercontroler : MonoBehaviour
 
     private void HandleMovement()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputX = moveAction != null ? moveAction.ReadValue<Vector2>().x : 0f;
         Vector2 velocity = body.linearVelocity;
         velocity.x = inputX * moveSpeed;
 
@@ -48,10 +67,15 @@ public class playercontroler : MonoBehaviour
         {
             verticalVelocity = verticalVelocity < 0f ? -2f : verticalVelocity;
 
-            if (Input.GetButtonDown("Jump"))
+            if (jumpQueued)
             {
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                jumpQueued = false;
             }
+        }
+        else
+        {
+            jumpQueued = false;
         }
 
         verticalVelocity += gravity * Time.deltaTime;
@@ -97,5 +121,40 @@ public class playercontroler : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+    }
+
+    private void BindInput(bool enable)
+    {
+        if (enable)
+        {
+            moveAction = moveActionReference != null ? moveActionReference.action : null;
+            jumpAction = jumpActionReference != null ? jumpActionReference.action : null;
+
+            moveAction?.Enable();
+
+            if (jumpAction != null)
+            {
+                jumpAction.started += OnJump;
+                jumpAction.Enable();
+            }
+        }
+        else
+        {
+            moveAction?.Disable();
+
+            if (jumpAction != null)
+            {
+                jumpAction.started -= OnJump;
+                jumpAction.Disable();
+            }
+        }
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            jumpQueued = true;
+        }
     }
 }
