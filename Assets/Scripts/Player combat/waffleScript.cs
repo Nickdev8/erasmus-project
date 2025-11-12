@@ -1,15 +1,15 @@
-using System;
 using UnityEngine;
 
 public class waffleScript : MonoBehaviour
 {
-    [SerializeField] protected float waffleSpeed;
+    protected float waffleSpeed;
     private Rigidbody2D waffleRB;
-    [SerializeField] private int waffleDamage;
+    protected int waffleDamage;
 
 
     private void Start()
     {
+        waffleDamage = 1;
         waffleSpeed = 100f;
         waffleRB = GetComponent<Rigidbody2D>();
     }
