@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::waffleScript
   waffleSpeed: 100
   waffleRB: {fileID: 6386916403139260672}
+  waffleDamage: 20
 --- !u!58 &-6898238521057190327
 CircleCollider2D:
   m_ObjectHideFlags: 0
