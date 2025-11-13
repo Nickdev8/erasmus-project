@@ -12,17 +12,20 @@ public class ParallaxLayer : MonoBehaviour
     [SerializeField] private float padding = 0.5f;
     [SerializeField] private bool autoSizeToView = true;
     [SerializeField] private int minimumSegments = 3;
+    [SerializeField] private SpriteRenderer templateRenderer;
 
     private readonly List<Transform> activeSegments = new();
-    private SpriteRenderer templateRenderer;
     private Transform cameraTransform;
     private float viewWidth;
     private float segmentWidth;
     private bool segmentsPrepared;
+    private Vector3 templateLocalPosition;
+    private Quaternion templateLocalRotation;
+    private Vector3 templateLocalScale = Vector3.one;
 
     private void Awake()
     {
-        templateRenderer = GetComponent<SpriteRenderer>();
+        CacheTemplateRenderer();
     }
 
     public void Configure(Transform cameraTransform, float viewWidth)
@@ -49,11 +52,9 @@ public class ParallaxLayer : MonoBehaviour
             return;
         }
 
-        templateRenderer = templateRenderer != null ? templateRenderer : GetComponent<SpriteRenderer>();
-
-        if (templateRenderer == null)
+        if (!CacheTemplateRenderer())
         {
-            Debug.LogWarning($"{nameof(ParallaxLayer)} on {name} needs a {nameof(SpriteRenderer)} to build repeating layers.", this);
+            Debug.LogWarning($"{nameof(ParallaxLayer)} on {name} needs a {nameof(SpriteRenderer)} (on self or child) to build repeating layers.", this);
             loopHorizontally = false;
             return;
         }
@@ -84,12 +85,18 @@ public class ParallaxLayer : MonoBehaviour
 
         int requiredSegments = Mathf.Max(minimumSegments, Mathf.CeilToInt((viewWidth + padding * 2f) / segmentWidth) + 2);
         float startingOffset = -segmentWidth * (requiredSegments - 1) * 0.5f;
+        Vector3 baseOffset = templateLocalPosition;
+        Quaternion baseRotation = templateLocalRotation;
+        Vector3 baseScale = templateLocalScale;
 
         for (int i = 0; i < requiredSegments; i++)
         {
             SpriteRenderer segmentRenderer = CreateSegmentFromTemplate(templateRenderer, i);
-            Vector3 localPos = Vector3.right * (startingOffset + segmentWidth * i);
-            segmentRenderer.transform.localPosition = localPos;
+            Transform segmentTransform = segmentRenderer.transform;
+            Vector3 localPos = baseOffset + Vector3.right * (startingOffset + segmentWidth * i);
+            segmentTransform.localPosition = localPos;
+            segmentTransform.localRotation = baseRotation;
+            segmentTransform.localScale = baseScale;
             activeSegments.Add(segmentRenderer.transform);
         }
 
@@ -192,5 +199,56 @@ public class ParallaxLayer : MonoBehaviour
         {
             templateRenderer.enabled = true;
         }
+    }
+
+    private bool CacheTemplateRenderer()
+    {
+        if (templateRenderer == null)
+        {
+            templateRenderer = GetComponent<SpriteRenderer>();
+
+            if (templateRenderer == null)
+            {
+                foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>(includeInactive: true))
+                {
+                    if (renderer == null)
+                    {
+                        continue;
+                    }
+
+                    Transform rendererTransform = renderer.transform;
+
+                    if (rendererTransform == transform)
+                    {
+                        templateRenderer = renderer;
+                        break;
+                    }
+
+                    if (rendererTransform.parent != transform)
+                    {
+                        continue;
+                    }
+
+                    if (rendererTransform.name.Contains("_Segment_"))
+                    {
+                        continue;
+                    }
+
+                    templateRenderer = renderer;
+                    break;
+                }
+            }
+        }
+
+        if (templateRenderer == null)
+        {
+            return false;
+        }
+
+        Transform templateTransform = templateRenderer.transform;
+        templateLocalPosition = templateTransform.localPosition;
+        templateLocalRotation = templateTransform.localRotation;
+        templateLocalScale = templateTransform.localScale;
+        return true;
     }
 }
