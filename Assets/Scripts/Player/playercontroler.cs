@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class playercontroler : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float runSpeed = 9.5f;
     [SerializeField] private float acceleration = 75f;
     [SerializeField] private float deceleration = 90f;
     [SerializeField, Range(0f, 1f)] private float airControlPercent = 0.5f;
@@ -29,9 +30,18 @@ public class playercontroler : MonoBehaviour
     [SerializeField] private float respawnThresholdY = -10f;
     [SerializeField] private Transform respawnPoint;
 
+    [Header("Audio")]
+    [SerializeField] private string walkClipId = "foorsteps-normal";
+    [SerializeField] private string runClipId = "foorsteps-running";
+    [SerializeField] private float footstepVolume = 0.7f;
+    [SerializeField] private float walkInterval = 0.25f;
+    [SerializeField] private float runInterval = 0.18f;
+    [SerializeField] private float minFootstepSpeed = 0.1f;
+
     [Header("Input (New System)")]
     [SerializeField] private InputActionReference moveActionReference;
     [SerializeField] private InputActionReference jumpActionReference;
+    [SerializeField] private InputActionReference runActionReference;
 
     private Rigidbody2D body;
     private float verticalVelocity;
@@ -39,16 +49,21 @@ public class playercontroler : MonoBehaviour
     private Vector2 defaultSpawnPosition;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction runAction;
     private bool jumpQueued;
     private bool jumpHeld;
     private float coyoteCounter;
     private float jumpBufferCounter;
+    private float footstepTimer;
+    private AudioSource footstepSource;
+    private string currentFootstepClipId;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         body.gravityScale = 0f; // Custom gravity keeps jump timings consistent.
         defaultSpawnPosition = respawnPoint != null ? (Vector2)respawnPoint.position : (Vector2)transform.position;
+        SetupFootstepSource();
     }
 
     private void OnEnable()
@@ -62,6 +77,8 @@ public class playercontroler : MonoBehaviour
         jumpQueued = false;
         jumpHeld = false;
         jumpBufferCounter = 0f;
+        StopFootstepClip();
+        currentFootstepClipId = null;
     }
 
     private void Update()
@@ -74,10 +91,12 @@ public class playercontroler : MonoBehaviour
     private void HandleMovement()
     {
         float inputX = moveAction != null ? moveAction.ReadValue<Vector2>().x : 0f;
+        bool wantsToRun = runAction != null && runAction.IsPressed();
+        float targetSpeedMagnitude = wantsToRun ? runSpeed : walkSpeed;
         Vector2 velocity = body.linearVelocity;
 
         bool hasInput = !Mathf.Approximately(inputX, 0f);
-        float targetSpeed = inputX * moveSpeed;
+        float targetSpeed = inputX * targetSpeedMagnitude;
         float accelRate = hasInput ? acceleration : deceleration;
         float controlPercent = isGrounded ? 1f : airControlPercent;
 
@@ -94,6 +113,7 @@ public class playercontroler : MonoBehaviour
         velocity.y = verticalVelocity;
 
         body.linearVelocity = velocity;
+        HandleFootsteps(Mathf.Abs(velocity.x), wantsToRun);
     }
 
     private void UpdateJumpState()
@@ -191,6 +211,7 @@ public class playercontroler : MonoBehaviour
         {
             moveAction = moveActionReference != null ? moveActionReference.action : null;
             jumpAction = jumpActionReference != null ? jumpActionReference.action : null;
+            runAction = runActionReference != null ? runActionReference.action : null;
 
             moveAction?.Enable();
 
@@ -200,16 +221,24 @@ public class playercontroler : MonoBehaviour
                 jumpAction.canceled += OnJumpCanceled;
                 jumpAction.Enable();
             }
+
+            runAction?.Enable();
         }
         else
         {
             moveAction?.Disable();
-
+            
             if (jumpAction != null)
             {
                 jumpAction.started -= OnJumpStarted;
                 jumpAction.canceled -= OnJumpCanceled;
                 jumpAction.Disable();
+            }
+
+            if (runAction != null)
+            {
+                runAction.Disable();
+                runAction = null;
             }
         }
     }
@@ -224,5 +253,84 @@ public class playercontroler : MonoBehaviour
     private void OnJumpCanceled(InputAction.CallbackContext context)
     {
         jumpHeld = false;
+    }
+
+    private void HandleFootsteps(float horizontalSpeed, bool isRunning)
+    {
+        string clipId = isRunning ? runClipId : walkClipId;
+        float interval = isRunning ? runInterval : walkInterval;
+        bool canPlay = isGrounded && horizontalSpeed >= minFootstepSpeed && !string.IsNullOrWhiteSpace(clipId);
+
+        if (!canPlay)
+        {
+            StopFootstepClip();
+            footstepTimer = 0f;
+            currentFootstepClipId = null;
+            return;
+        }
+
+        footstepTimer -= Time.deltaTime;
+        float clampedInterval = Mathf.Max(0.05f, interval);
+
+        if (currentFootstepClipId != clipId)
+        {
+            PlayFootstepClip(clipId, restart: true);
+            currentFootstepClipId = clipId;
+            footstepTimer = clampedInterval;
+            return;
+        }
+
+        if (footstepTimer <= 0f)
+        {
+            PlayFootstepClip(clipId, restart: true);
+            footstepTimer = clampedInterval;
+        }
+    }
+
+    private void SetupFootstepSource()
+    {
+        footstepSource = gameObject.AddComponent<AudioSource>();
+        footstepSource.playOnAwake = false;
+        footstepSource.loop = false;
+        footstepSource.spatialBlend = 0f;
+    }
+
+    private void PlayFootstepClip(string clipId, bool restart)
+    {
+        if (footstepSource == null)
+        {
+            return;
+        }
+
+        AudioClip clip = AudioManager.Instance != null ? AudioManager.Instance.GetClip(clipId) : null;
+
+        if (clip == null)
+        {
+            AudioManager.Instance?.PlaySFX(clipId, transform.position, footstepVolume);
+            return;
+        }
+
+        if (footstepSource.clip != clip)
+        {
+            footstepSource.clip = clip;
+        }
+
+        footstepSource.volume = footstepVolume;
+        footstepSource.pitch = 1f;
+        if (restart)
+        {
+            footstepSource.Stop();
+            footstepSource.time = 0f;
+        }
+
+        footstepSource.Play();
+    }
+
+    private void StopFootstepClip()
+    {
+        if (footstepSource != null && footstepSource.isPlaying)
+        {
+            footstepSource.Stop();
+        }
     }
 }

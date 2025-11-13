@@ -95,6 +95,17 @@ public class AudioManager : MonoBehaviour
         PlaySFX(id, Vector3.zero, volume, pitch);
     }
 
+    public AudioClip GetClip(string id)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            return null;
+        }
+
+        clipLookup.TryGetValue(id, out AudioClip clip);
+        return clip;
+    }
+
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
         if (musicSource == null || musicSource.clip == clip)

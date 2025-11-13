@@ -797,7 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89effcbb82c3b6ccc95b1f9508849922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playercontroler
-  moveSpeed: 6
+  walkSpeed: 6
+  runSpeed: 9.5
   acceleration: 75
   deceleration: 90
   airControlPercent: 0.5
@@ -814,8 +815,15 @@ MonoBehaviour:
   gravity: -25
   respawnThresholdY: -10
   respawnPoint: {fileID: 1710049164}
+  walkClipId: foorsteps-normal
+  runClipId: foorsteps-running
+  footstepVolume: 0.7
+  walkInterval: 3
+  runInterval: 1
+  minFootstepSpeed: 0.1
   moveActionReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   jumpActionReference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  runActionReference: {fileID: -6193496983483922829, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!4 &864083300
 Transform:
   m_ObjectHideFlags: 0
