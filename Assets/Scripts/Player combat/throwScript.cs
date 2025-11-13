@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class throwScript : MonoBehaviour
 {
@@ -16,6 +15,6 @@ public class throwScript : MonoBehaviour
 
     public void Shoot()
     {
-       GameObject waffle =  Instantiate(wafflePrefabs, throwPoint.position, throwPoint.rotation);
+        GameObject waffle = Instantiate(wafflePrefabs, throwPoint.position, throwPoint.rotation);
     }
 }
