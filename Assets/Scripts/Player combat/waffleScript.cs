@@ -7,10 +7,10 @@ public class waffleScript : MonoBehaviour
     protected int waffleDamage;
 
 
-    private void Start()
+    public virtual void Start()
     {
+        waffleSpeed = 100;
         waffleDamage = 1;
-        waffleSpeed = 100f;
         waffleRB = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame

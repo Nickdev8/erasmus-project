@@ -4,23 +4,12 @@ using UnityEngine;
 public class WaffleDamageUp : waffleScript
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        waffleDamage = 1;
-
+        base.Start();
+        print("Changed waffles");
+        waffleDamage = 2;
+        print(waffleDamage);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("DamageUp"))
-        {
-            waffleDamage ++;
-            Destroy(other.gameObject);
-        }
-    }
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2352592188956436386}
   - component: {fileID: 5020592671869649456}
   - component: {fileID: 6386916403139260672}
-  - component: {fileID: 7945148803522024347}
   - component: {fileID: -6898238521057190327}
+  - component: {fileID: 7443111437171454473}
   m_Layer: 0
-  m_Name: waffle
+  m_Name: wafflePowerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.86797047, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.015604973, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -120,20 +120,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7945148803522024347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705706506005330315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 346202c7dc2d04a40bb554c90dbe7b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::waffleScript
-  waffleSpeed: 100
-  waffleDamage: 1
 --- !u!58 &-6898238521057190327
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -170,3 +156,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.49999997
+--- !u!114 &7443111437171454473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705706506005330315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577094fb3c8ceb1499037fef38ab0f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaffleDamageUp
+  waffleSpeed: 100
+  waffleDamage: 2

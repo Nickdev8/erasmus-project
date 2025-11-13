@@ -761,8 +761,6 @@ GameObject:
   - component: {fileID: 760053906}
   - component: {fileID: 760053905}
   - component: {fileID: 760053909}
-  - component: {fileID: 760053910}
-  - component: {fileID: 760053911}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -888,32 +886,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad9e1cd1b8c22f42b35df14a3f1c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::throwScript
-  wafflePrefabs: {fileID: 3705706506005330315, guid: b2df9470cb679df4696c983e0de7804d, type: 3}
+  wafflePrefabs:
+  - {fileID: 3705706506005330315, guid: b2df9470cb679df4696c983e0de7804d, type: 3}
+  - {fileID: 3705706506005330315, guid: 5fb3effacc245804a9e6a428e0e940fe, type: 3}
+  - {fileID: 6407149352234917632, guid: 70720ef231251ff4db25894a805ec08c, type: 3}
+  waffleNumber: 0
   throwPoint: {fileID: 279468447}
---- !u!114 &760053910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760053903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93aac6b95a8d9f34ca04230577336e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WaffleSpeedUp
---- !u!114 &760053911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760053903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 577094fb3c8ceb1499037fef38ab0f25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WaffleDamageUp
+  powerUpTime: 60
+  speedUpTime: 60
 --- !u!1 &856834767
 GameObject:
   m_ObjectHideFlags: 0
