@@ -5,8 +5,17 @@ using UnityEngine.InputSystem;
 public class playercontroler : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 6f;
-    [SerializeField] private float jumpHeight = 2.5f;
+    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float acceleration = 75f;
+    [SerializeField] private float deceleration = 90f;
+    [SerializeField, Range(0f, 1f)] private float airControlPercent = 0.5f;
+
+    [Header("Jumping")]
+    [SerializeField] private float jumpHeight = 2.8f;
+    [SerializeField] private float coyoteTime = 0.15f;
+    [SerializeField] private float jumpBufferTime = 0.15f;
+    [SerializeField] private float fallGravityMultiplier = 2.5f;
+    [SerializeField] private float lowJumpGravityMultiplier = 2f;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -31,11 +40,14 @@ public class playercontroler : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private bool jumpQueued;
+    private bool jumpHeld;
+    private float coyoteCounter;
+    private float jumpBufferCounter;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        body.gravityScale = 0f; // We handle gravity manually for consistent jump control.
+        body.gravityScale = 0f; // Custom gravity keeps jump timings consistent.
         defaultSpawnPosition = respawnPoint != null ? (Vector2)respawnPoint.position : (Vector2)transform.position;
     }
 
@@ -48,6 +60,8 @@ public class playercontroler : MonoBehaviour
     {
         BindInput(false);
         jumpQueued = false;
+        jumpHeld = false;
+        jumpBufferCounter = 0f;
     }
 
     private void Update()
@@ -61,27 +75,73 @@ public class playercontroler : MonoBehaviour
     {
         float inputX = moveAction != null ? moveAction.ReadValue<Vector2>().x : 0f;
         Vector2 velocity = body.linearVelocity;
-        velocity.x = inputX * moveSpeed;
 
+        bool hasInput = !Mathf.Approximately(inputX, 0f);
+        float targetSpeed = inputX * moveSpeed;
+        float accelRate = hasInput ? acceleration : deceleration;
+        float controlPercent = isGrounded ? 1f : airControlPercent;
+
+        velocity.x = Mathf.MoveTowards(velocity.x, targetSpeed, accelRate * controlPercent * Time.deltaTime);
+
+        UpdateJumpState();
+
+        if (jumpQueued && jumpBufferCounter > 0f && coyoteCounter > 0f)
+        {
+            PerformJump();
+        }
+
+        ApplyGravity();
+        velocity.y = verticalVelocity;
+
+        body.linearVelocity = velocity;
+    }
+
+    private void UpdateJumpState()
+    {
         if (isGrounded)
         {
-            verticalVelocity = verticalVelocity < 0f ? -2f : verticalVelocity;
-
-            if (jumpQueued)
+            coyoteCounter = coyoteTime;
+            if (verticalVelocity < 0f)
             {
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                jumpQueued = false;
+                verticalVelocity = -2f; // small downward force to keep grounded
             }
+        }
+        else
+        {
+            coyoteCounter -= Time.deltaTime;
+        }
+
+        if (jumpBufferCounter > 0f)
+        {
+            jumpBufferCounter -= Time.deltaTime;
         }
         else
         {
             jumpQueued = false;
         }
+    }
 
-        verticalVelocity += gravity * Time.deltaTime;
-        velocity.y = verticalVelocity;
+    private void PerformJump()
+    {
+        verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        jumpQueued = false;
+        jumpBufferCounter = 0f;
+    }
 
-        body.linearVelocity = velocity;
+    private void ApplyGravity()
+    {
+        float gravityScale = 1f;
+
+        if (verticalVelocity < 0f)
+        {
+            gravityScale = fallGravityMultiplier;
+        }
+        else if (!jumpHeld)
+        {
+            gravityScale = lowJumpGravityMultiplier;
+        }
+
+        verticalVelocity += gravity * gravityScale * Time.deltaTime;
     }
 
     private void HandleGroundCheck()
@@ -110,6 +170,8 @@ public class playercontroler : MonoBehaviour
         body.position = targetPosition;
         body.linearVelocity = Vector2.zero;
         verticalVelocity = 0f;
+        coyoteCounter = 0f;
+        jumpBufferCounter = 0f;
     }
 
     private void OnDrawGizmosSelected()
@@ -134,7 +196,8 @@ public class playercontroler : MonoBehaviour
 
             if (jumpAction != null)
             {
-                jumpAction.started += OnJump;
+                jumpAction.started += OnJumpStarted;
+                jumpAction.canceled += OnJumpCanceled;
                 jumpAction.Enable();
             }
         }
@@ -144,17 +207,22 @@ public class playercontroler : MonoBehaviour
 
             if (jumpAction != null)
             {
-                jumpAction.started -= OnJump;
+                jumpAction.started -= OnJumpStarted;
+                jumpAction.canceled -= OnJumpCanceled;
                 jumpAction.Disable();
             }
         }
     }
 
-    private void OnJump(InputAction.CallbackContext context)
+    private void OnJumpStarted(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
-        {
-            jumpQueued = true;
-        }
+        jumpQueued = true;
+        jumpHeld = true;
+        jumpBufferCounter = jumpBufferTime;
+    }
+
+    private void OnJumpCanceled(InputAction.CallbackContext context)
+    {
+        jumpHeld = false;
     }
 }
