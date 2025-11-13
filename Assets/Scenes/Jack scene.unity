@@ -844,8 +844,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89effcbb82c3b6ccc95b1f9508849922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playercontroler
-  moveSpeed: 6
+  walkSpeed: 6
+  runSpeed: 9.5
+  acceleration: 75
+  deceleration: 90
+  airControlPercent: 0.5
   jumpHeight: 2.5
+  coyoteTime: 0.15
+  jumpBufferTime: 0.15
+  fallGravityMultiplier: 2.5
+  lowJumpGravityMultiplier: 2
   groundCheck: {fileID: 639766742}
   groundRadius: 0.15
   groundMask:
@@ -854,8 +862,15 @@ MonoBehaviour:
   gravity: -25
   respawnThresholdY: -10
   respawnPoint: {fileID: 0}
+  walkClipId: foorsteps-normal
+  runClipId: foorsteps-running
+  footstepVolume: 0.7
+  walkInterval: 0.25
+  runInterval: 0.18
+  minFootstepSpeed: 0.1
   moveActionReference: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   jumpActionReference: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  runActionReference: {fileID: 0}
 --- !u!4 &760053908
 Transform:
   m_ObjectHideFlags: 0
@@ -886,8 +901,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad9e1cd1b8c22f42b35df14a3f1c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::throwScript
-  wafflePrefabs: {fileID: 3705706506005330315, guid: b2df9470cb679df4696c983e0de7804d, type: 3}
+  wafflePrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  waffleNumber: 0
   throwPoint: {fileID: 279468447}
+  powerUpTime: 0
+  speedUpTime: 0
 --- !u!1 &856834767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +1334,7 @@ GameObject:
   - component: {fileID: 1043342186}
   - component: {fileID: 1043342185}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
