@@ -5,17 +5,19 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     public ParallaxCamera parallaxCamera;
-    List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
+    readonly List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
 
     void OnEnable() => AttachCameraEvents(autoAssignIfMissing: true);
 
     void OnDisable() => DetachCameraEvents();
 
-    void Start() => SetLayers();
+    void Start() => RefreshLayers();
 
-    void SetLayers()
+    void RefreshLayers()
     {
         parallaxLayers.Clear();
+        float viewWidth = CalculateCameraViewWidth();
+        Transform cameraTransform = GetCameraTransform();
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -24,6 +26,7 @@ public class ParallaxBackground : MonoBehaviour
             if (layer != null)
             {
                 layer.name = "Layer-" + i;
+                layer.Configure(cameraTransform, viewWidth);
                 parallaxLayers.Add(layer);
             }
         }
@@ -63,6 +66,8 @@ public class ParallaxBackground : MonoBehaviour
             }
         }
 
+        RefreshLayers();
+
         parallaxCamera.onCameraTranslate -= Move;
         parallaxCamera.onCameraTranslate += Move;
     }
@@ -73,5 +78,38 @@ public class ParallaxBackground : MonoBehaviour
         {
             parallaxCamera.onCameraTranslate -= Move;
         }
+    }
+
+    Transform GetCameraTransform()
+    {
+        if (parallaxCamera != null)
+        {
+            return parallaxCamera.transform;
+        }
+
+        Camera camera = Camera.main;
+        return camera != null ? camera.transform : null;
+    }
+
+    float CalculateCameraViewWidth()
+    {
+        Camera cameraComponent = null;
+
+        if (parallaxCamera != null)
+        {
+            cameraComponent = parallaxCamera.GetComponent<Camera>();
+        }
+
+        if (cameraComponent == null)
+        {
+            cameraComponent = Camera.main;
+        }
+
+        if (cameraComponent == null || !cameraComponent.orthographic)
+        {
+            return 0f;
+        }
+
+        return cameraComponent.orthographicSize * 2f * cameraComponent.aspect;
     }
 }
