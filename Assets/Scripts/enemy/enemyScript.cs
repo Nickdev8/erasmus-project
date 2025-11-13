@@ -16,7 +16,7 @@ public class enemyScript : MonoBehaviour
     {
         currentHp -= damageTaken;
         {
-            if(currentHp <= 0)
+            if (currentHp <= 0)
             {
                 Destroy(gameObject);
             }
