@@ -850,7 +850,7 @@ MonoBehaviour:
   groundRadius: 0.15
   groundMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4294967295
   gravity: -25
   respawnThresholdY: -10
   respawnPoint: {fileID: 0}
