@@ -18,7 +18,6 @@ public class throwScript : MonoBehaviour
         {
             Shoot();
         }
-        print(powerUpTime);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
