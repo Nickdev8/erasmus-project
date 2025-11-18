@@ -1235,10 +1235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5e92f58dfb8a609a03f4e624190b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::paralaxscript
-  parallaxFactor: -1
+  parallaxFactor: 1
   loopHorizontally: 0
   padding: 0.5
-  autoSizeToView: 1
+  autoSizeToView: 0
   minimumSegments: 3
   templateRenderer: {fileID: 0}
 --- !u!1 &390713581
@@ -1903,10 +1903,10 @@ MonoBehaviour:
   fallGravityMultiplier: 2.5
   lowJumpGravityMultiplier: 2
   groundCheck: {fileID: 1234719838}
-  groundRadius: 0.15
+  groundRadius: 0.3
   groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   gravity: -25
   respawnThresholdY: -10
   respawnPoint: {fileID: 0}
@@ -2956,15 +2956,15 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
-    minMaxState: 3
-    scalar: 4
-    minScalar: 1
+    minMaxState: 0
+    scalar: 0
+    minScalar: 0
     maxCurve:
       serializedVersion: 2
       m_Curve:
