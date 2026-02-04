@@ -7,7 +7,7 @@ public class WaffleSpeedUp : waffleScript
     {
         base.Start();
         print("Changed waffle");
-        waffleSpeed = 150f;
+        waffleSpeed = 100f;
         print(waffleSpeed);
 
     }
