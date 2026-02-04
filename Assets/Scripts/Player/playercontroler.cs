@@ -57,9 +57,9 @@ public class playercontroler : MonoBehaviour
     private float footstepTimer;
     private AudioSource footstepSource;
     private string currentFootstepClipId;
-
     private void Awake()
     {
+
         body = GetComponent<Rigidbody2D>();
         body.gravityScale = 0f; // Custom gravity keeps jump timings consistent.
         defaultSpawnPosition = respawnPoint != null ? (Vector2)respawnPoint.position : (Vector2)transform.position;
@@ -333,4 +333,6 @@ public class playercontroler : MonoBehaviour
             footstepSource.Stop();
         }
     }
+
+
 }
