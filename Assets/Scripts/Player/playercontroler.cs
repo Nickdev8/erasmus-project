@@ -333,6 +333,4 @@ public class playercontroler : MonoBehaviour
             footstepSource.Stop();
         }
     }
-
-
 }

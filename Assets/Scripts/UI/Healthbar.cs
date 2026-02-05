@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Healthbar : MonoBehaviour
 {
-    protected int Health = 5;
+    public int Health = 5;
     [SerializeField] private GameObject[] Healthbars;
 
     // Update is called once per frame
