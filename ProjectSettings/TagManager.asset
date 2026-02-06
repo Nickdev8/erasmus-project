@@ -59,6 +59,9 @@ TagManager:
   - name: layer 3
     uniqueID: 3835420451
     locked: 0
+  - name: floor
+    uniqueID: 383690585
+    locked: 0
   - name: layer 4
     uniqueID: 1220044221
     locked: 0
