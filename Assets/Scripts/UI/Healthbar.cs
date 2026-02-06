@@ -30,7 +30,7 @@ public class Healthbar : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Health -= 1;
+            playerMovement.Onhit -= () => Health -= 1;
             UnityEngine.Debug.Log("Player took damage! Current Health: " + Health);
         }
     }
