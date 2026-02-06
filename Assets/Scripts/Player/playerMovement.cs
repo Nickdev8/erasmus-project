@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class playerMovement : MonoBehaviour
 {
+    public static event Action Onhit;
     public Healthbar Healthbar;
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float jumpForce = 10.0f;
@@ -12,12 +14,11 @@ public class playerMovement : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     private SpriteRenderer spriteRenderer;
     private int extrajumps;
-    public int extrajumpsvalue = 1;
+    [SerializeField]private int extrajumpsvalue = 1;
     public LayerMask groundLayer;
     private bool isGrounded;
     private Rigidbody2D rb;
     private Animator animator;
-    public Image healthbar;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,8 +48,6 @@ public class playerMovement : MonoBehaviour
                 extrajumps--;
             }
         }
-        healthbar.fillAmount = Healthbar.Health / 100f;
-
     }
 
     private void FixedUpdate()
@@ -57,8 +56,9 @@ public class playerMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("damage"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
+            Onhit?.Invoke();
             Healthbar.Health -= 25;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             StartCoroutine(blinkRed());
