@@ -21,6 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
+<<<<<<< Updated upstream:Assets/sprites/animations/Player be low key throwing/Playerthrow.anim
       value: {fileID: -982129631, guid: 9d363336cbeab7644adc861979607f46, type: 3}
     - time: 0.28333333
       value: {fileID: -1412291423, guid: 9d363336cbeab7644adc861979607f46, type: 3}
@@ -28,12 +29,23 @@ AnimationClip:
       value: {fileID: 584143065, guid: 9d363336cbeab7644adc861979607f46, type: 3}
     - time: 0.75
       value: {fileID: -982129631, guid: 9d363336cbeab7644adc861979607f46, type: 3}
+=======
+      value: {fileID: -279220436, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+    - time: 0.083333336
+      value: {fileID: -1159138797, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+    - time: 0.16666667
+      value: {fileID: -785178593, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+>>>>>>> Stashed changes:Assets/sprites/animations/player walk animation/player walk animation.anim
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
+<<<<<<< Updated upstream:Assets/sprites/animations/Player be low key throwing/Playerthrow.anim
   m_SampleRate: 60
+=======
+  m_SampleRate: 12
+>>>>>>> Stashed changes:Assets/sprites/animations/player walk animation/player walk animation.anim
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,16 +62,26 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
+<<<<<<< Updated upstream:Assets/sprites/animations/Player be low key throwing/Playerthrow.anim
     - {fileID: -982129631, guid: 9d363336cbeab7644adc861979607f46, type: 3}
     - {fileID: -1412291423, guid: 9d363336cbeab7644adc861979607f46, type: 3}
     - {fileID: 584143065, guid: 9d363336cbeab7644adc861979607f46, type: 3}
     - {fileID: -982129631, guid: 9d363336cbeab7644adc861979607f46, type: 3}
+=======
+    - {fileID: -279220436, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+    - {fileID: -1159138797, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+    - {fileID: -785178593, guid: a04c7dfc95ed74b498867d943511d5b1, type: 3}
+>>>>>>> Stashed changes:Assets/sprites/animations/player walk animation/player walk animation.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
+<<<<<<< Updated upstream:Assets/sprites/animations/Player be low key throwing/Playerthrow.anim
     m_StopTime: 0.76666665
+=======
+    m_StopTime: 0.25
+>>>>>>> Stashed changes:Assets/sprites/animations/player walk animation/player walk animation.anim
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
