@@ -50,22 +50,22 @@ TagManager:
   - name: layer 0
     uniqueID: 3341125543
     locked: 0
+  - name: layer 1
+    uniqueID: 46152397
+    locked: 0
   - name: layer 2
     uniqueID: 1717493777
     locked: 0
   - name: layer 3
     uniqueID: 3835420451
     locked: 0
-  - name: floor
-    uniqueID: 383690585
-    locked: 0
-  - name: layer 1
-    uniqueID: 46152397
-    locked: 0
   - name: layer 4
     uniqueID: 1220044221
     locked: 0
-  - name: ui
+  - name: floor
+    uniqueID: 383690585
+    locked: 0
+  - name: UI
     uniqueID: 819684617
     locked: 0
   m_RenderingLayers:
