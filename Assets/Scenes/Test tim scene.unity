@@ -8668,6 +8668,10 @@ PrefabInstance:
       propertyPath: Healthbar
       value: 
       objectReference: {fileID: 849755110}
+    - target: {fileID: 2561324519530906010, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6160136198240228022, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
       propertyPath: m_SortingOrder
       value: 80
@@ -13929,7 +13933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5723801473306079395, guid: efa26c9877db0714d8ef66a138050c61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.15
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 5723801473306079395, guid: efa26c9877db0714d8ef66a138050c61, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13963,6 +13967,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6473654051622038961, guid: efa26c9877db0714d8ef66a138050c61, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372862438093057152, guid: efa26c9877db0714d8ef66a138050c61, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3f902cf53ad4275489444ebb75ce5ae0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

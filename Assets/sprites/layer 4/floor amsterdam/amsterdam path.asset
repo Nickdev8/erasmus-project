@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: amsterdam path
   m_EditorClassIdentifier: 
   m_Angles:
-  - m_Start: -180
-    m_End: 180
+  - m_Start: -89
+    m_End: 88
     m_Order: 0
     m_Sprites:
-    - {fileID: 21300000, guid: 0ae2b74b1edd14bb18dd7b65ae916a54, type: 3}
-  m_FillTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
+    - {fileID: 21300000, guid: 872213778cb72734a80133245dccf004, type: 3}
+  m_FillTexture: {fileID: 2800000, guid: eaabe8b2e4b158045af395ed2df016ed, type: 3}
   m_CornerSprites:
   - m_CornerType: 0
     m_Sprites:
