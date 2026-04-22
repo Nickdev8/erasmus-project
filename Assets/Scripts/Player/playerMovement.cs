@@ -35,6 +35,8 @@ public class playerMovement : MonoBehaviour
     {
         float moveInput = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
+        animator.SetFloat("ASpeed", Mathf.Abs(moveInput * speed));
+
         if (isGrounded)
         {
             extrajumps = extrajumpsvalue;
