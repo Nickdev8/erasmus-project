@@ -48,7 +48,7 @@ public class realEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("isAttacking", true);
+            animator.SetTrigger("isAttacking");
         }
     }
 }
