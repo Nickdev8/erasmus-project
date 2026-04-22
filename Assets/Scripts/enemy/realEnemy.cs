@@ -48,8 +48,7 @@ public class realEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
-            atack= true
-         }
+            animator.SetBool("isAttacking", true);
+        }
     }
 }
