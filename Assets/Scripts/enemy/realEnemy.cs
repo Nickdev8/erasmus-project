@@ -44,7 +44,7 @@ public class realEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (CompareTag(Player))
+        if (collision.gameObject.CompareTag("Player"))
         { }
     }
 }
