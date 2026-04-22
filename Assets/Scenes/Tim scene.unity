@@ -1521,7 +1521,7 @@ EdgeCollider2D:
   - {x: 25.082413, y: 1.9258657}
   - {x: 26.34926, y: 1.8540595}
   - {x: 27.693987, y: 1.7897787}
-  - {x: 29.114027, y: 1.7354953}
+  - {x: 29.114027, y: 1.7354952}
   - {x: 30.606802, y: 1.6936816}
   - {x: 32.16935, y: 1.6668134}
   - {x: 32.823296, y: 1.6667737}
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   - {x: 25.082413, y: 1.9258657}
   - {x: 26.34926, y: 1.8540595}
   - {x: 27.693987, y: 1.7897787}
-  - {x: 29.114027, y: 1.7354953}
+  - {x: 29.114027, y: 1.7354952}
   - {x: 30.606802, y: 1.6936816}
   - {x: 32.16935, y: 1.6668134}
   - {x: 32.823296, y: 1.6667737}
@@ -4038,7 +4038,7 @@ MonoBehaviour:
   - {x: 1.5671462, y: 2.0192962}
   - {x: 2.224621, y: 2.0146682}
   - {x: 3.2269087, y: 2.074589}
-  - {x: 3.6166413, y: 2.077849}
+  - {x: 3.616641, y: 2.077849}
   - {x: 3.6163285, y: 1.60253}
   - {x: -1.9601463, y: 1.6489191}
   m_ShadowSegment: []
@@ -4166,7 +4166,7 @@ EdgeCollider2D:
   - {x: 1.5671462, y: 2.0192962}
   - {x: 2.224621, y: 2.0146682}
   - {x: 3.2269087, y: 2.074589}
-  - {x: 3.6166413, y: 2.077849}
+  - {x: 3.616641, y: 2.077849}
   - {x: 3.6163285, y: 1.60253}
   - {x: -1.9601463, y: 1.6489191}
   m_AdjacentStartPoint: {x: 0, y: 0}
@@ -6445,6 +6445,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.11
       objectReference: {fileID: 0}
+    - target: {fileID: 8372862438093057152, guid: efa26c9877db0714d8ef66a138050c61, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3f902cf53ad4275489444ebb75ce5ae0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19266,8 +19270,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 0.33337712, y: 1.5444415, z: 0}
-    m_Extent: {x: 2.3473132, y: 0.3690924, z: 0}
+    m_Center: {x: 0.33337688, y: 1.5444415, z: 0}
+    m_Extent: {x: 2.347313, y: 0.3690924, z: 0}
   m_SpriteSortPoint: 0
 --- !u!4 &1875936495
 Transform:
