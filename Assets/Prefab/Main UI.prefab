@@ -114,11 +114,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635957106565045676}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28f56307bb9d32b488ec842ad62f4ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Healthbar
+  Health: 5
   Healthbars:
   - {fileID: 4155417338538828770}
   - {fileID: 1270745825515405551}
