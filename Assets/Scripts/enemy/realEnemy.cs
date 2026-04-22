@@ -7,11 +7,13 @@ public class realEnemy : MonoBehaviour
     [SerializeField] private Transform[] points;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
+    private Animator animator;
 
     private int i;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -45,6 +47,9 @@ public class realEnemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        { }
+        {
+
+            atack= true
+         }
     }
 }
