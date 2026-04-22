@@ -4,7 +4,7 @@ public class GameOver : MonoBehaviour
 {
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Julian scene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
@@ -14,6 +14,6 @@ public class GameOver : MonoBehaviour
 
     public void MainMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

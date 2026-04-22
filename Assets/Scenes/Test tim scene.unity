@@ -8668,6 +8668,10 @@ PrefabInstance:
       propertyPath: Healthbar
       value: 
       objectReference: {fileID: 849755110}
+    - target: {fileID: 2561324519530906010, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6160136198240228022, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
       propertyPath: m_SortingOrder
       value: 80
