@@ -65,5 +65,8 @@ TagManager:
   - name: layer 4
     uniqueID: 1220044221
     locked: 0
+  - name: ui
+    uniqueID: 819684617
+    locked: 0
   m_RenderingLayers:
   - Default
