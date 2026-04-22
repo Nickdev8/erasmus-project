@@ -8,9 +8,16 @@ public class throwScript : MonoBehaviour
     public GameObject[] wafflePrefabs;
     public int waffleNumber;
     public Transform throwPoint;
+    private Animator animator;
 
     public int powerUpTime;
     public int speedUpTime;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -52,6 +59,7 @@ public class throwScript : MonoBehaviour
 
     public void Shoot()
     {
+        animator.SetTrigger("isThrowing");
         GameObject waffle = Instantiate(wafflePrefabs[waffleNumber], throwPoint.position, throwPoint.rotation);
     }
 
