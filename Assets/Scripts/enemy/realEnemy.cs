@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class realEnemy : MonoBehaviour
@@ -39,5 +40,11 @@ public class realEnemy : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.fixedDeltaTime);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (CompareTag(Player))
+        { }
     }
 }

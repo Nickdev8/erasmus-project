@@ -19,6 +19,9 @@ public class playerMovement : MonoBehaviour
     private bool isGrounded;
     private Rigidbody2D rb;
     private Animator animator;
+    private bool isInvincible = false;
+    [SerializeField] private float invincibilityDurationSeconds = 1.5f;
+    [SerializeField] private float invincibilityDeltaTime = 0.15f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -58,15 +61,21 @@ public class playerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            if (isInvincible)
+            {
+                return;
+            }
+            isInvincible = true;
             Onhit?.Invoke();
-            Healthbar.Health -= 25;
+            StartCoroutine(BecomeTemporarilyInvincible());
+            Healthbar.Health -= 1;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             StartCoroutine(blinkRed());
-
             if (Healthbar.Health <= 0)
             {
                 Die();
             }
+
         }
     }
 
@@ -81,5 +90,14 @@ public class playerMovement : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+        Debug.Log("Player turned invincible!");
 
+        // Wait the total duration directly
+        yield return new WaitForSeconds(invincibilityDurationSeconds);
+
+        Debug.Log("Player is no longer invincible!");
+        isInvincible = false;
+    }
 }

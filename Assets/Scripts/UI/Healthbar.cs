@@ -25,13 +25,4 @@ public class Healthbar : MonoBehaviour
             SceneManager.LoadScene("GameOver");
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            playerMovement.Onhit -= () => Health -= 1;
-            UnityEngine.Debug.Log("Player took damage! Current Health: " + Health);
-        }
-    }
 }
