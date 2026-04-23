@@ -37,6 +37,16 @@ public class playerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
         animator.SetFloat("ASpeed", Mathf.Abs(moveInput * speed));
 
+        // Flip the sprite based on the direction we are moving
+        if (moveInput > 0)
+        {
+            spriteRenderer.flipX = false; // Facing right
+        }
+        else if (moveInput < 0)
+        {
+            spriteRenderer.flipX = true; // Facing left (backwards)
+        }
+
         if (isGrounded)
         {
             extrajumps = extrajumpsvalue;
