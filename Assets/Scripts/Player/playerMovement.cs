@@ -55,10 +55,12 @@ public class playerMovement : MonoBehaviour
         {
             if (isGrounded)
             {
+                animator.SetTrigger("isJumping");
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
             else if (extrajumps > 0)
             {
+                animator.SetTrigger("isJumping");
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                 extrajumps--;
             }
