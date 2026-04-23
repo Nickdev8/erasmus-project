@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 216746971}
   - component: {fileID: 216746970}
   - component: {fileID: 216746969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite Shape Profile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2357,7 +2357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829104623433554459, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8318623221942919130, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2369,7 +2369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113202220468017628, guid: c7b644bb9a56e2f488a6bd10a383d6a4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4039,7 +4039,7 @@ GameObject:
   - component: {fileID: 865320983}
   - component: {fileID: 865320982}
   - component: {fileID: 865320985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: nature floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4316,7 +4316,7 @@ GameObject:
   - component: {fileID: 889110587}
   - component: {fileID: 889110586}
   - component: {fileID: 889110585}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: amsterdam path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
